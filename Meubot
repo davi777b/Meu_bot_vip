@@ -1,0 +1,27 @@
+from telegram import Bot
+from flask import Flask, request
+
+app = Flask(__name__)
+
+BOT_TOKEN = '7900815349:AAGARua66P8JUTWehY-jlOB73H56CtvB2Sw'
+CHAT_ID = '@BCTDnovinhas04_bot'
+LINK_VIP = 'https://t.me/incestop'
+
+MENSAGEM = f"""
+Parabéns, aqui está seu link aprovado. Abaixo ta teu link vip:
+
+{LINK_VIP}
+"""
+
+bot = Bot(token=BOT_TOKEN)
+
+@app.route('/liberar', methods=['GET'])
+def liberar_manual():
+    try:
+        bot.send_message(chat_id=CHAT_ID, text=MENSAGEM)
+        return 'Mensagem enviada com sucesso.', 200
+    except Exception as e:
+        return f'Erro: {str(e)}', 500
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=10000)
